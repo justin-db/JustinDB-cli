@@ -43,6 +43,19 @@ func main() {
         return nil
       },
     },
+    {
+      Name:    "buildinfo",
+      Aliases: []string{"bi"},
+      Usage:   "Print information about cluster build",
+      Action:  func(c *cli.Context) error {
+        resp, _ := http.Get(url + "/info")
+        defer resp.Body.Close()
+        bodyBytes, _ := ioutil.ReadAll(resp.Body)
+        bodyString   := string(bodyBytes)
+        fmt.Println(bodyString)
+        return nil
+      },
+    },
   }
 
   sort.Sort(cli.FlagsByName(app.Flags))
